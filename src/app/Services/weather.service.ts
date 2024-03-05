@@ -12,21 +12,21 @@ export class WeatherService {
   weatherUrlCity: string = 'https://api.openweathermap.org/data/2.5/weather?q='
   constructor(private http: HttpClient) { }
 
-  getWeather(location: string, unit?: string): Observable<any> {
+  getWeather(location: string, unit: string = 'metric'): Observable<any> {
     return this.http.get(
-      this.weatherUrl + location + '&appid=' + environment.weatherApi.apiKey + '&units=' + unit || 'metric'
+      this.weatherUrl + location + '&appid=' + environment.weatherApi.apiKey + '&units=' + unit
     );
   }
 
-  getCityWeather(location: string, unit?: string): Observable<any> {
+  getCityWeather(location: string, unit: string = 'metric'): Observable<any> {
     return this.http.get(
-      this.weatherUrlCity + location + '&appid=' + environment.weatherApi.apiKey + '&units=' + unit || 'metric'
+      this.weatherUrlCity + location + '&appid=' + environment.weatherApi.apiKey + '&units=' + unit
     );
   }
 
-  getWeatherLoc(lat: string, long: string, unit?: string): Observable<any> {
+  getWeatherLoc(lat: string, long: string, unit: string = 'metric'): Observable<any> {
     return this.http.get(
-      this.weatherUrl + 'lat=' + lat + '&lon=' + long + '&appid=' + environment.weatherApi.apiKey + '&units=' + unit || 'metric'
+      this.weatherUrl + 'lat=' + lat + '&lon=' + long + '&appid=' + environment.weatherApi.apiKey + '&units=' + unit
     );
   }
 }

@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { WeatherService } from '../../Services/weather.service';
 import { DatePipe } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-weather',
   standalone: true,
-  imports: [DatePipe, ReactiveFormsModule],
+  imports: [DatePipe, ReactiveFormsModule, RouterLink],
   templateUrl: './weather.component.html',
   styleUrl: './weather.component.css'
 })
@@ -27,6 +29,11 @@ export class WeatherComponent {
         next: (res) => {
           console.log(res)
           this.weatherData = res;
+        },
+        error: (error: HttpErrorResponse) => {
+          if (error.status === 404) {
+            alert(error.message)
+          }
         }
       })
     }

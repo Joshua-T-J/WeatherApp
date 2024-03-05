@@ -12,22 +12,22 @@
         </div>
         @if (weatherData) {
         <div class="weather_body">
-            <h1 class="weather_city">{{weatherData?.name}}, {{weatherData?.sys.country}}</h1>
+            <h1 class="weather_city">{{weatherData.name}}, {{weatherData.sys.country}}</h1>
             <div class="weather_datetime">
-                {{weatherData?.dt*1000|date:'EEEE, dd MMM YYYY, hh:mm a'}}
+                {{weatherData.dt*1000|date:'EEEE, dd MMM YYYY, hh:mm a'}}
             </div>
             <div class="weather_forecast">
-                {{weatherData?.weather[0].main}}
+                {{weatherData.weather[0].main}}
             </div>
             <div class="weather_icon">
-                <img [src]="getWeatherIcon(weatherData?.weather[0].icon)" alt="">
+                <img [src]="getWeatherIcon(weatherData.weather[0].icon)" alt="">
             </div>
             <p class="weather_temperature">
-                {{weatherData?.main.temp}}&#176;
+                {{weatherData.main.temp}}&#176;
             </p>
             <div class="weather_minmax">
-                <p>Min: {{weatherData?.main.temp_min}}&#176;</p>
-                <p>Max: {{weatherData?.main.temp_max}}&#176;</p>
+                <p>Min: {{weatherData.main.temp_min}}&#176;</p>
+                <p>Max: {{weatherData.main.temp_max}}&#176;</p>
             </div>
         </div>
         <div class="weather_info">
@@ -35,44 +35,47 @@
                 <i class="bi bi-thermometer-high"></i>
                 <div>
                     <p>Real Feel</p>
-                    <p class="weather_realfeel">{{weatherData?.main.feels_like}}&#176;</p>
+                    <p class="weather_realfeel">{{weatherData.main.feels_like}}&#176;</p>
                 </div>
             </div>
             <div class="weather_card">
                 <i class="bi bi-droplet"></i>
                 <div>
                     <p>Humidity</p>
-                    <p class="weather_humidity">{{weatherData?.main.humidity}}%</p>
+                    <p class="weather_humidity">{{weatherData.main.humidity}}%</p>
                 </div>
             </div>
             <div class="weather_card">
                 <i class="bi bi-wind"></i>
                 <div>
                     <p>Wind</p>
-                    <p class="weather_wind">{{weatherData?.wind.speed}} m/s</p>
+                    <p class="weather_wind">{{weatherData.wind.speed}} m/s</p>
                 </div>
             </div>
             <div class="weather_card">
                 <i class="bi bi-speedometer2"></i>
                 <div>
                     <p>Pressure</p>
-                    <p class="weather_pressure">{{weatherData?.main.pressure}} hPa</p>
+                    <p class="weather_pressure">{{weatherData.main.pressure}} hPa</p>
                 </div>
             </div>
             <div class="weather_card">
                 <i class="bi bi-sunrise"></i>
                 <div>
                     <p>Sunrise</p>
-                    <p class="weather_pressure">{{weatherData?.sys.sunrise*1000|date:'hh:mm a'}}</p>
+                    <p class="weather_pressure">{{weatherData.sys.sunrise*1000|date:'hh:mm a'}}</p>
                 </div>
             </div>
             <div class="weather_card">
                 <i class="bi bi-sunset"></i>
                 <div>
                     <p>Sunset</p>
-                    <p class="weather_pressure">{{weatherData?.sys.sunset*1000|date:'hh:mm a'}}</p>
+                    <p class="weather_pressure">{{weatherData.sys.sunset*1000|date:'hh:mm a'}}</p>
                 </div>
             </div>
+        </div>
+        <div class="weather_footer">
+            <button class="btn weather_btn" [routerLink]="['/details',weatherData.name]" routerLinkActive="router-link-active">More Details</button>
         </div>
         }
     </div>
