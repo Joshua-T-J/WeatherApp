@@ -6,8 +6,8 @@
                 <i class="bi bi-search"></i>
             </form>
             <div class="weather_units">
-                <span class="weather_unit_celsius" (click)="setUnit('metric')">C&#176C;</span>
-                <span class="weather_unit_farenheit" (click)="setUnit('imperial')">F&#176F;</span>
+                <span class="weather_unit_celsius" matTooltip="Celsius" (click)="setUnit('metric')">C&#176C;</span>
+                <span class="weather_unit_farenheit" matTooltip="Fahrenheit" (click)="setUnit('imperial')">F&#176F;</span>
             </div>
         </div>
         @if (weatherData) {

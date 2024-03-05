@@ -6,12 +6,13 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes), provideClientHydration(), importProvidersFrom(BrowserModule, FormsModule, ReactiveFormsModule),
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
-    provideHttpClient(withFetch())
+    provideHttpClient(withFetch()), provideAnimationsAsync()
   ]
 };

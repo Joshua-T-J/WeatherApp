@@ -1,5 +1,40 @@
-<p>weather-details works!</p>
+<div class="container">
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
 
-@for (item of weatherDetails?.list; track item) {
-<p>{{item|json}}</p>
-}
+            <ng-container matColumnDef="No">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> #No </th>
+                <td mat-cell *matCellDef="let row; let i = index"> {{i+1}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+                <td mat-cell *matCellDef="let row"> {{row.data[0].dt*1000|date:'dd MMM yy, hh:mm a'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="temperature">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Temperature </th>
+                <td mat-cell *matCellDef="let row"> {{row.data[0].main.temp}}&#176; </td>
+            </ng-container>
+
+            <ng-container matColumnDef="icon">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Weather </th>
+                <td mat-cell *matCellDef="let row">
+                    <img [src]="getWeatherIcon(row.data[0].weather[0].icon)" alt="">
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+                <td mat-cell *matCellDef="let row"> {{row.data[0].weather[0].description|titlecase}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+        <mat-paginator [pageSizeOptions]="[10, 20, 50]" [showFirstLastButtons]="true" aria-label="Select page of users"></mat-paginator>
+    </div>
+
+
+</div>
