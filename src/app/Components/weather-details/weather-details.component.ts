@@ -51,7 +51,7 @@ export class WeatherDetailsComponent implements OnInit {
         console.log(this.weatherDetailsSorted)
       },
       error: (err: HttpErrorResponse) => {
-        alert(err.statusText)
+        console.log(err.statusText)
       }
     });
   }
