@@ -1,4 +1,5 @@
 <div class="container">
+    @if(weatherDetails){
     <div class="details-header">
         <div class="row">
             <h3>{{weatherDetails?.city.name}}, {{weatherDetails?.city.country}}</h3>
@@ -77,4 +78,5 @@
             }
         </mat-accordion>
     </div>
+    }
 </div>

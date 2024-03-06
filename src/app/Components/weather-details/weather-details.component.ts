@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-weather-details',
@@ -48,6 +49,9 @@ export class WeatherDetailsComponent implements OnInit {
         this.weatherDetails = res;
         this.weatherDetailsSorted = this.groupByDate(res.list)
         console.log(this.weatherDetailsSorted)
+      },
+      error: (err: HttpErrorResponse) => {
+        alert(err.statusText)
       }
     });
   }
