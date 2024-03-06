@@ -3,10 +3,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { WeatherService } from '../../Services/weather.service';
 import { CommonModule, DatePipe, JsonPipe, TitleCasePipe } from '@angular/common';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table'
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,10 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   imports: [
     JsonPipe,
-    MatTableModule,
     MatFormFieldModule,
-    MatPaginatorModule,
-    MatSortModule,
     DatePipe,
     TitleCasePipe,
     MatExpansionModule,
@@ -33,21 +27,11 @@ import { MatButtonModule } from '@angular/material/button';
 export class WeatherDetailsComponent implements OnInit {
   weatherDetails: any;
   weatherDetailsSorted: any = [];
-  displayedColumns: string[] = ['No', 'date', 'temperature', 'icon', 'description'];
-  expandedElement: any | null;
-  dataSource = new MatTableDataSource();
 
   @ViewChild(MatAccordion) accordion!: MatAccordion;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit(): void {
     this.getWeatherDetails()
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
 
   constructor(private weatherService: WeatherService, private route: ActivatedRoute) { }
@@ -64,19 +48,8 @@ export class WeatherDetailsComponent implements OnInit {
         this.weatherDetails = res;
         this.weatherDetailsSorted = this.groupByDate(res.list)
         console.log(this.weatherDetailsSorted)
-        // this.dataSource = new MatTableDataSource(this.weatherDetails.list)
-        // this.dataSource = new MatTableDataSource(this.weatherDetailsSorted)
       }
     });
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
 
   timestampToDate(ts: number): string {
