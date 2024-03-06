@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="mat-elevation-z8">
+    <!-- <div class="mat-elevation-z8">
         <table mat-table [dataSource]="dataSource" matSort>
 
             <ng-container matColumnDef="No">
@@ -9,7 +9,7 @@
 
             <ng-container matColumnDef="date">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-                <td mat-cell *matCellDef="let row"> {{row.data[0].dt*1000|date:'dd MMM yy, hh:mm a'}} </td>
+                <td mat-cell *matCellDef="let row"> {{row.data[0].dt*1000|date:'dd MMM yyyy'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="temperature">
@@ -20,21 +20,96 @@
             <ng-container matColumnDef="icon">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Weather </th>
                 <td mat-cell *matCellDef="let row">
-                    <img [src]="getWeatherIcon(row.data[0].weather[0].icon)" alt="">
+                    <img [src]="getWeatherIcon(row?.data[4]?.weather[0].icon||row.data[0].weather[0].icon)" alt="">
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="description">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
-                <td mat-cell *matCellDef="let row"> {{row.data[0].weather[0].description|titlecase}} </td>
+                <td mat-cell *matCellDef="let row"> {{(row.data[4]?.weather[0].description||row.data[0].weather[0].description)|titlecase}} </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-        </table>
-        <mat-paginator [pageSizeOptions]="[10, 20, 50]" [showFirstLastButtons]="true" aria-label="Select page of users"></mat-paginator>
+        </table> -->
+    <!-- <mat-paginator [pageSizeOptions]="[10, 20, 50]" [showFirstLastButtons]="true" aria-label="Select page of users"></mat-paginator> -->
+    <!-- </div> -->
+
+    <div class="inner-container">
+        <div class="example-action-buttons">
+            <button mat-raised-button (click)="accordion.openAll()">Expand All</button>
+            <button mat-raised-button (click)="accordion.closeAll()">Collapse All</button>
+        </div>
+        <mat-accordion class="example-headers-align" multi>
+            @for (weatherData of weatherDetailsSorted; track weatherData) {
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{weatherData.data[0].dt*1000|date:'dd MMM yyyy'}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        <div class="row" style="width: 100%;">
+                            <div class="col-4">
+                                <p>{{weatherData.data[0].main.temp}}&#176;</p>
+                            </div>
+                            <div class="col-4">
+                                <img [src]="getWeatherIcon(weatherData?.data[4]?.weather[0].icon||weatherData.data[0].weather[0].icon)" alt="">
+                            </div>
+                            <div class="col-4">
+                                <p>{{(weatherData.data[4]?.weather[0].description||weatherData.data[0].weather[0].description)|titlecase}}</p>
+                            </div>
+                        </div>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="row">
+                    <div class="col-2">
+                        <p>Time</p>
+                    </div>
+                    <div class="col-2">
+                        <p>Temperature</p>
+                    </div>
+                    <div class="col-2">
+                        <p>Description</p>
+                    </div>
+                    <div class="col-2">
+                        <p>Weather</p>
+                    </div>
+                    <div class="col-2">
+                        <p>Wind</p>
+                    </div>
+                    <div class="col-2">
+                        <p>Humidity</p>
+                    </div>
+                </div>
+                <hr>
+                @for (item of weatherData.data; track $index) {
+                <div class="row">
+                    <div class="col-2">
+                        <p>{{item.dt*1000|date:'hh:mm a'}}</p>
+                    </div>
+                    <div class="col-2">
+                        <p>{{item.main.temp}}&#176;</p>
+                    </div>
+                    <div class="col-2">
+                        <p>{{item.weather[0].description|titlecase}}</p>
+                    </div>
+                    <div class="col-2">
+                        <img [src]="getWeatherIcon(item.weather[0].icon)" alt="">
+                    </div>
+                    <div class="col-2">
+                        <p>{{item.wind.speed}} m/s</p>
+                    </div>
+                    <div class="col-2">
+                        <p>{{item.main.humidity}}</p>
+                    </div>
+                </div>
+                }
+            </mat-expansion-panel>
+            }
+        </mat-accordion>
     </div>
+
 
 
 </div>

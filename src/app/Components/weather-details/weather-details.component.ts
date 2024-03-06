@@ -7,8 +7,9 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table'
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-import { MatExpansionModule } from '@angular/material/expansion';
+import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-weather-details',
@@ -23,7 +24,8 @@ import { MatIconModule } from '@angular/material/icon';
     TitleCasePipe,
     MatExpansionModule,
     CommonModule,
-    MatIconModule
+    MatIconModule,
+    MatButtonModule
   ],
   templateUrl: './weather-details.component.html',
   styleUrl: './weather-details.component.css'
@@ -34,13 +36,10 @@ export class WeatherDetailsComponent implements OnInit {
   displayedColumns: string[] = ['No', 'date', 'temperature', 'icon', 'description'];
   expandedElement: any | null;
   dataSource = new MatTableDataSource();
-  columnsToDisplayWithExpand = [...this.weatherDetailsSorted, 'expand'];
 
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
-
-  @ViewChild(MatSort)
-  sort!: MatSort;
+  @ViewChild(MatAccordion) accordion!: MatAccordion;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit(): void {
     this.getWeatherDetails()
@@ -66,7 +65,7 @@ export class WeatherDetailsComponent implements OnInit {
         this.weatherDetailsSorted = this.groupByDate(res.list)
         console.log(this.weatherDetailsSorted)
         // this.dataSource = new MatTableDataSource(this.weatherDetails.list)
-        this.dataSource = new MatTableDataSource(this.weatherDetailsSorted)
+        // this.dataSource = new MatTableDataSource(this.weatherDetailsSorted)
       }
     });
   }

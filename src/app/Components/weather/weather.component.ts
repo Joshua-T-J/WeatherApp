@@ -17,6 +17,7 @@ export class WeatherComponent {
 
   weatherData: any;
   unit: string = 'metric';
+  date: Date = new Date();
 
   constructor(private weatherService: WeatherService, private fb: FormBuilder) { }
 
@@ -33,7 +34,7 @@ export class WeatherComponent {
         },
         error: (error: HttpErrorResponse) => {
           if (error.status === 404) {
-            alert(error.message)
+            alert(error.error?.message)
           }
         }
       })
@@ -44,8 +45,11 @@ export class WeatherComponent {
     return `http://openweathermap.org/img/w/${iconCode}.png`;
   }
 
-  setUnit(unit: string) {
-    this.unit = unit;
+  setUnit(event: any) {
+    if (event) {
+      this.unit = event.target.checked ? 'imperial' : 'metric';
+    }
     this.getWeather();
   }
+
 }

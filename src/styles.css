@@ -199,3 +199,7 @@ input::placeholder {
     background: #434343 !important;
     color: #fff;
 }
+
+.mat-expansion-panel-content .mat-expansion-panel-body {
+    color: #f1f1f1 !important;
+}

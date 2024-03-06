@@ -1,0 +1,33 @@
+.inner-container {
+    min-width: 60dvw;
+    margin-block: 20px;
+}
+
+.mat-expansion-panel {
+    background: #303030;
+    padding-block: 10px;
+}
+
+.mat-expansion-panel-header-title,
+.mat-expansion-panel-header-description,
+.mat-expansion-indicator::after {
+    color: #f1f1f1 !important;
+}
+
+.example-action-buttons {
+    text-align: right;
+    margin-bottom: 10px;
+
+    & button {
+        margin-left: 5px;
+    }
+}
+
+.mat-mdc-raised-button:not(:disabled) {
+    background: #303030;
+    color: #f1f1f1;
+}
+
+.mat-expansion-panel-header-description .row {
+    align-items: center;
+}

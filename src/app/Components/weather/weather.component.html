@@ -5,9 +5,11 @@
                 <input type="text" formControlName="Location" placeholder="Search for a city..." class="weather_searchform">
                 <i class="bi bi-search"></i>
             </form>
-            <div class="weather_units">
-                <span class="weather_unit_celsius" matTooltip="Celsius" (click)="setUnit('metric')">C&#176C;</span>
-                <span class="weather_unit_farenheit" matTooltip="Fahrenheit" (click)="setUnit('imperial')">F&#176F;</span>
+            <div class="btn-container">
+                <label class="switch btn-color-mode-switch">
+                    <input id="color_mode" (change)="setUnit($event)" name="color_mode" type="checkbox">
+                    <label class="btn-color-mode-switch-inner" data-off="C&#176F;" data-on="F&#176F;" for="color_mode"></label>
+                </label>
             </div>
         </div>
         @if (weatherData) {
@@ -76,6 +78,52 @@
         </div>
         <div class="weather_footer">
             <button class="btn weather_btn" [routerLink]="['/details',weatherData.name]" routerLinkActive="router-link-active">More Details</button>
+        </div>
+        }
+        @else{
+        <div class="weather_body">
+            <h1 class="weather_city">Search a city</h1>
+            <div class="weather_datetime">
+                {{date|date:'EEEE, dd MMM YYYY, hh:mm a'}}
+            </div>
+        </div>
+        <div class="weather_info">
+            <div class="weather_card">
+                <i class="bi bi-thermometer-high"></i>
+                <div>
+                    <p>Real Feel</p>
+                </div>
+            </div>
+            <div class="weather_card">
+                <i class="bi bi-droplet"></i>
+                <div>
+                    <p>Humidity</p>
+                </div>
+            </div>
+            <div class="weather_card">
+                <i class="bi bi-wind"></i>
+                <div>
+                    <p>Wind</p>
+                </div>
+            </div>
+            <div class="weather_card">
+                <i class="bi bi-speedometer2"></i>
+                <div>
+                    <p>Pressure</p>
+                </div>
+            </div>
+            <div class="weather_card">
+                <i class="bi bi-sunrise"></i>
+                <div>
+                    <p>Sunrise</p>
+                </div>
+            </div>
+            <div class="weather_card">
+                <i class="bi bi-sunset"></i>
+                <div>
+                    <p>Sunset</p>
+                </div>
+            </div>
         </div>
         }
     </div>
