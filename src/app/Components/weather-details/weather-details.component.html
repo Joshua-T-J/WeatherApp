@@ -1,4 +1,9 @@
 <div class="container">
+    <div class="details-header">
+        <div class="row">
+            <h3>{{weatherDetails.city.name}}, {{weatherDetails.city.country}}</h3>
+        </div>
+    </div>
     <div class="inner-container">
         <div class="example-action-buttons">
             <button mat-raised-button (click)="accordion.openAll()">Expand All</button>
@@ -9,7 +14,7 @@
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
-                        {{weatherData.data[0].dt*1000|date:'dd MMM yyyy'}}
+                        {{weatherData.data[0].dt*1000|date:'dd MMM yyyy, EEEE'}}
                     </mat-panel-title>
                     <mat-panel-description>
                         <div class="row" style="width: 100%;">
@@ -17,10 +22,10 @@
                                 <p>{{weatherData.data[0].main.temp}}&#176;</p>
                             </div>
                             <div class="col-4">
-                                <img [src]="getWeatherIcon(weatherData?.data[4]?.weather[0].icon||weatherData.data[0].weather[0].icon)" alt="">
+                                <p>{{(weatherData.data[4]?.weather[0].description||weatherData.data[0].weather[0].description)|titlecase}}</p>
                             </div>
                             <div class="col-4">
-                                <p>{{(weatherData.data[4]?.weather[0].description||weatherData.data[0].weather[0].description)|titlecase}}</p>
+                                <img [src]="getWeatherIcon(weatherData?.data[4]?.weather[0].icon||weatherData.data[0].weather[0].icon)" alt="">
                             </div>
                         </div>
                     </mat-panel-description>
@@ -46,13 +51,13 @@
                     </div>
                 </div>
                 <hr>
-                @for (item of weatherData.data; track $index) {
+                @for (item of weatherData.data; track item) {
                 <div class="row">
                     <div class="col-2">
                         <p>{{item.dt*1000|date:'hh:mm a'}}</p>
                     </div>
                     <div class="col-2">
-                        <p>{{item.main.temp}}&#176;</p>
+                        <p>{{item.main.temp_max}}&#176; <span class="min-temp">{{item.main.temp_min}}&#176;</span></p>
                     </div>
                     <div class="col-2">
                         <p>{{item.weather[0].description|titlecase}}</p>
@@ -64,7 +69,7 @@
                         <p>{{item.wind.speed}} m/s</p>
                     </div>
                     <div class="col-2">
-                        <p>{{item.main.humidity}}</p>
+                        <p>{{item.main.humidity}}%</p>
                     </div>
                 </div>
                 }

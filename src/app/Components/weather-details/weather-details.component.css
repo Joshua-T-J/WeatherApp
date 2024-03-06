@@ -31,3 +31,8 @@
 .mat-expansion-panel-header-description .row {
     align-items: center;
 }
+
+.min-temp {
+    opacity: .5;
+    margin-left: 5px;
+}
