@@ -39,6 +39,12 @@ body {
   align-items: center;
 }
 
+@media (max-width: 936px) {
+  .weather_header {
+    row-gap: 20px;
+  }
+}
+
 input {
   border: none;
   border-radius: 10px;
@@ -48,6 +54,13 @@ input {
   color: #fff;
   padding: 0.8rem 2.8rem;
   font-size: 1rem;
+  width: 100%;
+}
+
+@media (max-width: 400px) {
+  input {
+    padding-right: 5px;
+  }
 }
 
 input::placeholder {
@@ -118,6 +131,12 @@ input::placeholder {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1rem;
   margin-top: 3rem;
+}
+
+@media screen and (width<600px) {
+  .weather_info {
+    grid-template-columns: 1fr;
+  }
 }
 
 .weather_card {

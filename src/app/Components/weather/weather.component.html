@@ -2,13 +2,15 @@
     <div class="content">
         <div class="weather_header">
             <form class="weather_search" [formGroup]="formWeather" (ngSubmit)="getWeather()">
-                <input type="text" formControlName="Location" placeholder="Search for a city..." class="weather_searchform">
+                <input type="text" formControlName="Location" placeholder="Search for a city..."
+                    class="weather_searchform">
                 <i class="bi bi-search"></i>
             </form>
             <div class="btn-container">
                 <label class="switch btn-color-mode-switch">
                     <input id="color_mode" (change)="setUnit($event)" name="color_mode" type="checkbox">
-                    <label class="btn-color-mode-switch-inner" data-off="C&#176F;" data-on="F&#176F;" for="color_mode"></label>
+                    <label class="btn-color-mode-switch-inner" data-off="C&#176F;" data-on="F&#176F;"
+                        for="color_mode"></label>
                 </label>
             </div>
         </div>
@@ -77,7 +79,8 @@
             </div>
         </div>
         <div class="weather_footer">
-            <button class="btn weather_btn" [routerLink]="['/details',weatherData.name]" routerLinkActive="router-link-active">More Details</button>
+            <button class="btn weather_btn" [routerLink]="['/details',weatherData.name,unit]"
+                routerLinkActive="router-link-active">More Details</button>
         </div>
         }
         @else{

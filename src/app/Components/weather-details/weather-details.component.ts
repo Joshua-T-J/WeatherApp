@@ -2,7 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { WeatherService } from '../../Services/weather.service';
-import { CommonModule, DatePipe, JsonPipe, TitleCasePipe } from '@angular/common';
+import {
+  CommonModule,
+  DatePipe,
+  JsonPipe,
+  TitleCasePipe,
+} from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,10 +25,10 @@ import { HttpErrorResponse } from '@angular/common/http';
     MatExpansionModule,
     CommonModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   templateUrl: './weather-details.component.html',
-  styleUrl: './weather-details.component.css'
+  styleUrl: './weather-details.component.css',
 })
 export class WeatherDetailsComponent implements OnInit {
   weatherDetails: any;
@@ -32,28 +37,35 @@ export class WeatherDetailsComponent implements OnInit {
   @ViewChild(MatAccordion) accordion!: MatAccordion;
 
   ngOnInit(): void {
-    this.getWeatherDetails()
+    this.getWeatherDetails();
   }
 
-  constructor(private weatherService: WeatherService, private route: ActivatedRoute) { }
+  constructor(
+    private weatherService: WeatherService,
+    private route: ActivatedRoute
+  ) {}
 
   getWeatherDetails(): void {
-    this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => {
-        return this.weatherService.getWeather(params.get('id') as string, 'metric')
-      }
+    this.route.paramMap
+      .pipe(
+        switchMap((params: ParamMap) => {
+          return this.weatherService.getWeather(
+            params.get('id') as string,
+            (params.get('unit') as string) || 'metric'
+          );
+        })
       )
-    ).subscribe({
-      next: (res: any) => {
-        console.log(res)
-        this.weatherDetails = res;
-        this.weatherDetailsSorted = this.groupByDate(res.list)
-        console.log(this.weatherDetailsSorted)
-      },
-      error: (err: HttpErrorResponse) => {
-        console.log(err.statusText)
-      }
-    });
+      .subscribe({
+        next: (res: any) => {
+          console.log(res);
+          this.weatherDetails = res;
+          this.weatherDetailsSorted = this.groupByDate(res.list);
+          console.log(this.weatherDetailsSorted);
+        },
+        error: (err: HttpErrorResponse) => {
+          console.log(err.statusText);
+        },
+      });
   }
 
   timestampToDate(ts: number): string {
@@ -72,7 +84,7 @@ export class WeatherDetailsComponent implements OnInit {
     }, {});
 
     // Convert the grouped object into an array
-    const groupedArray = Object.keys(grouped).map(date => {
+    const groupedArray = Object.keys(grouped).map((date) => {
       return { date: date, data: grouped[date] };
     });
 
@@ -82,6 +94,4 @@ export class WeatherDetailsComponent implements OnInit {
   getWeatherIcon(iconCode: string) {
     return `http://openweathermap.org/img/w/${iconCode}.png`;
   }
-
-
 }

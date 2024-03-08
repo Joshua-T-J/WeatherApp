@@ -4,7 +4,7 @@ import { WeatherDetailsComponent } from './Components/weather-details/weather-de
 import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
-    { path: '', component: WeatherComponent },
-    { path: 'details/:id', component: WeatherDetailsComponent },
-    { path: '**', component: PageNotFoundComponent }
+  { path: '', component: WeatherComponent },
+  { path: 'details/:id/:unit', component: WeatherDetailsComponent },
+  { path: '**', component: PageNotFoundComponent },
 ];
