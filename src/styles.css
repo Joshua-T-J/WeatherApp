@@ -25,7 +25,7 @@ body {
 .content {
   border-radius: 10px;
   padding: 1rem 3rem;
-  width: 70dvw;
+  width: 95%;
   max-width: 800px;
   border-radius: 10px;
   background: linear-gradient(145deg, #1e1e1f, #232324);
@@ -57,9 +57,13 @@ input {
   width: 100%;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 600px) {
   input {
     padding-right: 5px;
+  }
+
+  .content {
+    padding: 1rem 15px;
   }
 }
 

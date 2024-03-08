@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { WeatherService } from '../../Services/weather.service';
 import { DatePipe } from '@angular/common';
 import {
@@ -23,7 +24,11 @@ export class WeatherComponent {
   unit: string = 'metric';
   date: Date = new Date();
 
-  constructor(private weatherService: WeatherService, private fb: FormBuilder) {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private weatherService: WeatherService,
+    private fb: FormBuilder
+  ) {
     this.getLocalStorageValue();
     this.weatherUnit.valueChanges.subscribe((value) => {
       this.setUnit(value);
@@ -32,27 +37,26 @@ export class WeatherComponent {
 
   weatherUnit = new FormControl(false);
 
-  formWeather = this.fb.group({
+  formWeather = this.fb.nonNullable.group({
     Location: ['', Validators.required],
   });
 
   getLocalStorageValue() {
-    let unit = localStorage.getItem('unit');
-    let booleanUnit = unit === 'true';
-    this.unit = booleanUnit ? 'imperial' : 'metric';
-    this.weatherUnit.setValue(booleanUnit);
+    if (isPlatformBrowser(this.platformId)) {
+      let unit = localStorage.getItem('unit');
+      let booleanUnit = unit === 'true';
+      this.unit = booleanUnit ? 'imperial' : 'metric';
+      this.weatherUnit.setValue(booleanUnit);
+    }
   }
 
   getWeather() {
     if (this.formWeather.valid) {
       this.weatherService
-        .getCityWeather(
-          this.formWeather.controls.Location.value || '',
-          this.unit
-        )
+        .getCityWeather(this.formWeather.controls.Location.value, this.unit)
         .subscribe({
           next: (res) => {
-            console.log(res);
+            // console.log(res);
             this.weatherData = res;
           },
           error: (error: HttpErrorResponse) => {
@@ -69,7 +73,9 @@ export class WeatherComponent {
   }
 
   setUnit(event: any) {
-    localStorage.setItem('unit', event);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('unit', event);
+    }
     this.unit = event ? 'imperial' : 'metric';
     this.getWeather();
   }

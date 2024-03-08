@@ -60,7 +60,7 @@ export class WeatherDetailsComponent implements OnInit {
           console.log(res);
           this.weatherDetails = res;
           this.weatherDetailsSorted = this.groupByDate(res.list);
-          console.log(this.weatherDetailsSorted);
+          // console.log(this.weatherDetailsSorted);
         },
         error: (err: HttpErrorResponse) => {
           console.log(err.statusText);
