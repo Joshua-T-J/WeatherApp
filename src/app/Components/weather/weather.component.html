@@ -8,7 +8,7 @@
             </form>
             <div class="btn-container">
                 <label class="switch btn-color-mode-switch">
-                    <input id="color_mode" (change)="setUnit($event)" name="color_mode" type="checkbox">
+                    <input id="color_mode" [formControl]="weatherUnit" name="color_mode" type="checkbox">
                     <label class="btn-color-mode-switch-inner" data-off="C&#176F;" data-on="F&#176F;"
                         for="color_mode"></label>
                 </label>
